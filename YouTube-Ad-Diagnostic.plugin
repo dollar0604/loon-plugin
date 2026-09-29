@@ -1,0 +1,13 @@
+#!name = YouTube Ad Diagnostic
+#!desc = YouTube HTTPS diagnostic plugin; does not block video traffic
+#!author = ChatGPT
+#!system = iOS,iPadOS
+#!loon_version = 3.5.1(978)
+
+[Rewrite]
+request if ${url} ~= /^https:\/\/(www\.)?youtube\.com\//i then request.header.set("X-Loon-YT-Diagnostic", "1")
+request if ${url} ~= /^https:\/\/youtubei\.googleapis\.com\//i then request.header.set("X-Loon-YT-Diagnostic", "1")
+request if ${url} ~= /^https:\/\/(www\.)?(googleads\.g\.doubleclick\.net|adservice\.google\.com)\//i then request.header.set("X-Loon-YT-Diagnostic", "1")
+
+[Mitm]
+hostname = youtube.com, *.youtube.com, youtubei.googleapis.com, googleads.g.doubleclick.net, adservice.google.com
